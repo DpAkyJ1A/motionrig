@@ -1,0 +1,569 @@
+/* Before and After side by side, the terminal across both; stacked on phones. */
+.chats {
+  --wait-before: 0s;
+  --wait-after: 0s;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+
+.chat {
+  display: grid;
+  min-width: 0;
+}
+
+.window {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #141518;
+}
+
+.window[data-tone='after'] {
+  border-color: rgb(255 212 0 / 0.4);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  background: rgb(255 255 255 / 0.02);
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+[data-tone='after'] .tag {
+  color: var(--rig);
+}
+
+.peer {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.peer small {
+  margin-left: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(140deg, #7cc2ff, #c4a7ff);
+  color: #111113;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.feed {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  margin: 0;
+  padding: 18px 16px 20px;
+  list-style: none;
+}
+
+/* A message slot: the other side's avatar, its typing dots, then the bubble in the same place. */
+.slot {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: end;
+  gap: 8px;
+  justify-items: start;
+}
+
+.slot[data-mine] {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: end;
+}
+
+.bubble {
+  grid-column: -2 / -1;
+  max-width: min(320px, 86%);
+  padding: 8px 12px 6px;
+  border-radius: 16px 16px 16px 4px;
+  background: #23262b;
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+[data-mine] .bubble {
+  border-radius: 16px 16px 4px 16px;
+  background: #2e2a12;
+  box-shadow: inset 0 0 0 1px rgb(255 212 0 / 0.18);
+}
+
+.bare {
+  padding: 0;
+  background: none !important;
+  box-shadow: none !important;
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  float: right;
+  margin: 6px 0 0 10px;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+[data-mine] .meta {
+  color: rgb(255 212 0 / 0.7);
+}
+
+.emoji {
+  display: block;
+  font-size: 34px;
+  line-height: 1.1;
+}
+
+/* The dev's attachment: a four-second clip, drawn in CSS. */
+.video {
+  position: relative;
+  display: block;
+  width: min(220px, 100%);
+  aspect-ratio: 16 / 10;
+  margin: 2px 0 8px;
+  overflow: hidden;
+  border-radius: 10px;
+  background:
+    linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px) 0 0 / 16px 16px,
+    #15171a;
+}
+
+.video i {
+  position: absolute;
+  left: 14%;
+  top: 34%;
+  width: 22%;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  background: #ffd400;
+}
+
+.video b {
+  position: absolute;
+  left: 8px;
+  bottom: 6px;
+  padding: 1px 6px;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 0.55);
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.video::after {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgb(0 0 0 / 0.5);
+  content: '▶';
+  padding-left: 3px;
+  font-size: 12px;
+  color: #fff;
+}
+
+/* The designer's reply: a link preview, like a messenger renders one. */
+.link {
+  display: grid;
+  gap: 2px;
+  margin: 2px 0 8px;
+  padding: 8px 10px;
+  border-left: 3px solid var(--rig);
+  border-radius: 4px 8px 8px 4px;
+  background: rgb(255 212 0 / 0.07);
+}
+
+.linkSite {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--rig);
+}
+
+.linkTitle {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.linkUrl {
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11.5px;
+  color: #7cc2ff;
+  overflow-wrap: anywhere;
+}
+
+.gap {
+  display: flex;
+  justify-content: center;
+  margin: 6px 0;
+}
+
+.gap span {
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.06);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.typing {
+  display: none;
+}
+
+/* The terminal under both chats: the command, its real output, and the change it made. It plays
+   when it scrolls in, which on every layout is after the chats above it have played. */
+.termWrap {
+  --wait: 0.2s;
+  display: grid;
+  margin-top: clamp(16px, 2vw, 24px);
+}
+
+.term {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #0f1012;
+}
+
+.termBar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.termBar span {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.termBar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.16);
+}
+
+.termBody {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0;
+}
+
+.run,
+.diffs {
+  min-width: 0;
+  padding: 16px 18px 18px;
+}
+
+.diffs {
+  display: grid;
+  align-content: start;
+  gap: 12px;
+  border-left: 1px solid var(--line);
+}
+
+.cmd,
+.out,
+.diff,
+.fileName {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 12.5px;
+  line-height: 1.7;
+}
+
+.cmd {
+  display: flex;
+  gap: 1ch;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+/* The prompt stays on the command's first line; the command wraps beside it. */
+.typed {
+  min-width: 0;
+}
+
+.prompt {
+  color: var(--rig);
+}
+
+.out {
+  margin-top: 10px;
+  color: #c3c4ca;
+  white-space: pre-wrap;
+}
+
+.out span {
+  display: inline;
+}
+
+.fileName {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.diff {
+  overflow-x: auto;
+  font-size: 12px;
+  color: #e4e4e8;
+}
+
+.diff > span {
+  display: block;
+  padding-right: 8px;
+  white-space: pre;
+}
+
+.del {
+  background: rgb(255 77 61 / 0.12);
+  box-shadow: inset 2px 0 #ff6b5c;
+}
+
+.ins {
+  background: rgb(74 222 128 / 0.1);
+  box-shadow: inset 2px 0 #4ade80;
+}
+
+.sign {
+  display: inline-block;
+  width: 1.4ch;
+  margin-left: 4px;
+  color: var(--muted);
+}
+
+.del .sign {
+  color: #ff8a7d;
+}
+
+.ins .sign {
+  color: #6ee79a;
+}
+
+@media (min-width: 900px) {
+  .chats {
+    --wait-after: 5.4s;
+  }
+
+}
+
+@media (max-width: 899px) {
+  .chats,
+  .termBody {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .diffs {
+    border-top: 1px solid var(--line);
+    border-left: 0;
+  }
+}
+
+/* The entrance, armed by Reveal once hydrated and played when the block scrolls into view.
+   Bubbles land at --at; the other side types for the 0.9 s before. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-armed] .slot .bubble,
+  [data-armed] .slot .avatar,
+  [data-armed] .gap {
+    opacity: 0;
+  }
+
+  [data-armed] .typing {
+    grid-column: 2;
+    grid-row: 1;
+    display: inline-flex;
+    gap: 4px;
+    align-self: end;
+    padding: 10px 12px;
+    border-radius: 16px 16px 16px 4px;
+    background: #23262b;
+    opacity: 0;
+  }
+
+  .typing i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--muted);
+  }
+
+  [data-armed] .slot .bubble,
+  [data-armed] .slot .avatar {
+    grid-row: 1;
+  }
+
+  [data-on] .slot .bubble,
+  [data-on] .gap {
+    animation: land 0.45s cubic-bezier(0.22, 1.2, 0.36, 1) calc(var(--wait) + var(--at)) both;
+  }
+
+  [data-on] .slot .bubble {
+    transform-origin: 0 100%;
+  }
+
+  [data-on] .slot[data-mine] .bubble {
+    transform-origin: 100% 100%;
+  }
+
+  [data-on] .slot .avatar {
+    animation: fade 0.3s ease-out calc(var(--wait) + var(--at) - 0.9s) both;
+  }
+
+  [data-on] .typing {
+    animation: typing 0.9s linear calc(var(--wait) + var(--at) - 0.9s) both;
+  }
+
+  [data-on] .typing i {
+    animation: dot 0.9s ease-in-out calc(var(--wait) + var(--at) - 0.9s) infinite;
+  }
+
+  [data-on] .typing i:nth-child(2) {
+    animation-delay: calc(var(--wait) + var(--at) - 0.75s);
+  }
+
+  [data-on] .typing i:nth-child(3) {
+    animation-delay: calc(var(--wait) + var(--at) - 0.6s);
+  }
+
+  /* The clip in the Before chat loops a sticky, heavy move: the thing the designer complains about. */
+  [data-on] .video i {
+    animation: sticky 2.4s cubic-bezier(0.7, 0, 0.9, 0.4) calc(var(--wait) + 2s) infinite alternate;
+  }
+
+  [data-armed] .typed {
+    clip-path: inset(0 100% 0 0);
+  }
+
+  [data-armed] .out span,
+  [data-armed] .file {
+    opacity: 0;
+  }
+
+  [data-on] .typed {
+    animation: type 1.1s steps(40, end) calc(var(--wait) + 0.3s) both;
+  }
+
+  [data-on] .out span {
+    animation: fade 0.2s ease-out calc(var(--wait) + 1.6s + var(--i) * 0.06s) both;
+  }
+
+  [data-on] .file {
+    animation: land 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--wait) + 2.5s) both;
+  }
+
+  [data-on] .file:nth-child(2) {
+    animation-delay: calc(var(--wait) + 2.65s);
+  }
+
+  [data-on] .file:nth-child(3) {
+    animation-delay: calc(var(--wait) + 2.8s);
+  }
+}
+
+@keyframes land {
+  from {
+    opacity: 0;
+    translate: 0 10px;
+    scale: 0.94;
+  }
+
+  to {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes typing {
+  0% {
+    opacity: 0;
+  }
+
+  12%,
+  88% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dot {
+  0%,
+  60%,
+  100% {
+    translate: 0 0;
+    opacity: 0.5;
+  }
+
+  30% {
+    translate: 0 -3px;
+    opacity: 1;
+  }
+}
+
+@keyframes sticky {
+  to {
+    translate: 210% 0;
+  }
+}
+
+@keyframes type {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}

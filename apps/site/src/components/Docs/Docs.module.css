@@ -1,0 +1,525 @@
+.doc {
+  display: grid;
+  gap: clamp(72px, 9vw, 120px);
+  max-width: 820px;
+}
+
+.section,
+.sub {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.sub {
+  margin-top: 28px;
+}
+
+.section > .sub:first-of-type {
+  margin-top: 8px;
+}
+
+.h2 {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: clamp(22px, 2.6vw, 30px);
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+}
+
+.h3 {
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Headings link to themselves; the ring mark shows on hover, as a copyable anchor. */
+.anchor {
+  text-decoration: none;
+}
+
+.anchor::after {
+  content: '#';
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  color: var(--faint);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.anchor:hover::after,
+.anchor:focus-visible::after {
+  opacity: 1;
+}
+
+.lead {
+  max-width: 64ch;
+  font-size: 17.5px;
+  color: #c3c4ca;
+}
+
+.doc p,
+.doc li {
+  max-width: 68ch;
+  color: #c3c4ca;
+}
+
+.doc a:not(.anchor) {
+  color: var(--text);
+  text-decoration-color: rgb(255 212 0 / 0.55);
+  text-underline-offset: 3px;
+}
+
+.doc a:not(.anchor):hover {
+  text-decoration-color: var(--rig);
+}
+
+.doc b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.doc :not(pre) > code {
+  font-size: 0.84em;
+  color: var(--text);
+  background: rgb(255 255 255 / 0.07);
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+  overflow-wrap: anywhere;
+}
+
+.doc pre {
+  max-height: 560px;
+}
+
+/* Option lists: a two-column table on wide screens, stacked rows on a phone. */
+.props {
+  border-top: 1px solid var(--line);
+}
+
+.prop {
+  display: grid;
+  grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+  gap: 6px 28px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.prop dt {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.prop dd {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  font-size: 15px;
+}
+
+.doc .prop .name {
+  padding: 0;
+  background: none;
+  color: var(--rig);
+  font-size: 13.5px;
+}
+
+.doc .prop .type {
+  padding: 0;
+  background: none;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.doc .def {
+  font-size: 12.5px;
+  color: var(--faint);
+}
+
+.doc .def code {
+  font-size: 0.95em;
+}
+
+.notes,
+.steps {
+  display: grid;
+  gap: 8px;
+  font-size: 15.5px;
+}
+
+.notes li {
+  position: relative;
+  padding-left: 20px;
+}
+
+.notes li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid var(--faint);
+  border-radius: 50%;
+}
+
+.steps {
+  counter-reset: step;
+}
+
+.steps li {
+  position: relative;
+  padding-left: 36px;
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.1em;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid rgb(255 212 0 / 0.5);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--rig);
+}
+
+.callout {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--red);
+  border-radius: 0 10px 10px 0;
+  background: rgb(255 77 61 / 0.05);
+  font-size: 15px;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+/* Theme demo */
+.themeDemo {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.swatchStage {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  border-right: 1px solid var(--line);
+  background-color: #141518;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* The swatch rig is a css rig: its fallbacks below are the code defaults. */
+.swatch {
+  display: block;
+  width: var(--swatch-size, 76px);
+  height: var(--swatch-size, 76px);
+  color: var(--swatch-color, #ffd400);
+}
+
+.swatch svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  stroke-width: var(--swatch-stroke, 2);
+}
+
+.swatch svg :is(circle, path) {
+  stroke-width: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .swatch {
+    animation: swatch-turn var(--swatch-spin, 2.4s) var(--swatch-ease, linear) infinite;
+  }
+}
+
+@keyframes swatch-turn {
+  to {
+    rotate: 1turn;
+  }
+}
+
+.themeControls {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: 14px;
+  padding: 24px;
+}
+
+.themeLabel {
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+.doc .themeLabel {
+  color: var(--faint);
+}
+
+.segmented {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--raise);
+}
+
+.segmented button {
+  height: 34px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.segmented button:hover {
+  color: var(--text);
+}
+
+.segmented button[aria-pressed='true'] {
+  background: var(--rig);
+  color: var(--rig-ink);
+}
+
+.doc .themeCode {
+  font-size: 12.5px;
+}
+
+@media (max-width: 760px) {
+  .pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .prop {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .themeDemo {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .swatchStage {
+    min-height: 150px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+/* The panel's own badges, redrawn for the docs: same mono, same hues. */
+.badge {
+  display: inline-block;
+  padding: 0 7px;
+  border-radius: 5px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.badge[data-applies='replay'] {
+  color: var(--blue);
+  box-shadow: inset 0 0 0 1px rgb(61 155 255 / 0.35);
+}
+
+.badge[data-applies='reload'] {
+  color: #ff6b5c;
+  box-shadow: inset 0 0 0 1px rgb(255 77 61 / 0.35);
+}
+
+.badge[data-applies='new'] {
+  color: var(--blue);
+  background: rgb(61 155 255 / 0.15);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+.applies {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.applies div {
+  display: grid;
+  grid-template-columns: 8.5rem minmax(0, 1fr);
+  gap: 6px 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.applies dd {
+  margin: 0;
+  max-width: 64ch;
+  font-size: 15px;
+  color: #c3c4ca;
+}
+
+@media (max-width: 640px) {
+  .applies div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* configure({ messages }) keys: a wrapping cloud of tokens. */
+.keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.keys code {
+  font-size: 12px;
+}
+
+/* Troubleshooting: the symptom, then what to check. */
+.faq {
+  display: grid;
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.faq div {
+  display: grid;
+  gap: 6px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.faq dt {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.faq dd {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 15px;
+  color: #c3c4ca;
+}
+
+/* Setup: one tab per stack, each a complete setup. */
+.setup {
+  position: relative;
+  display: grid;
+  gap: 22px;
+  min-width: 0;
+}
+
+/* Out of the grid, at its top: `#setup-<id>` lands on the tabs. */
+.setupTarget {
+  position: absolute;
+  top: 0;
+}
+
+.setupTabs {
+  display: flex;
+  gap: 4px;
+  border-bottom: 1px solid var(--line);
+}
+
+.setupTabs button {
+  position: relative;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  height: 46px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s;
+}
+
+.setupTabs button:hover,
+.setupTabs button[aria-selected='true'] {
+  color: var(--text);
+}
+
+/* The open tab wears a rig-yellow underline over the bar's rule, as the example file tabs do. */
+.setupTabs button[aria-selected='true']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--rig);
+}
+
+.setupTabs button:focus-visible {
+  outline-offset: -3px;
+}
+
+.setupLogo {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.setupPane {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+
+.setupPane[hidden] {
+  display: none;
+}
+
+/* The marks fit down to a 360 px screen; on a 320 px one only the three names do. */
+@media (max-width: 359px) {
+  .setupTabs button {
+    padding: 0 11px;
+  }
+
+  .setupLogo {
+    display: none;
+  }
+}

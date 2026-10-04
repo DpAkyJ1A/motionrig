@@ -1,0 +1,259 @@
+.block {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 40px;
+  padding: 0 8px 0 16px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.labelText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* File-type marks: one hue per kind, from the same family as the syntax colours. */
+.icon {
+  flex: none;
+  display: block;
+  color: var(--muted);
+}
+
+.icon[data-kind='ts'] {
+  color: #5a9cf5;
+}
+
+.icon[data-kind='js'] {
+  color: #e7cf5a;
+}
+
+.icon[data-kind='tsx'] {
+  color: #6fd3f0;
+}
+
+.icon[data-kind='css'],
+.icon[data-kind='module'] {
+  color: #b79cff;
+}
+
+.icon[data-kind='json'] {
+  color: #eab36b;
+}
+
+.icon[data-kind='sh'] {
+  color: #8fd694;
+}
+
+.icon[data-kind='url'] {
+  color: #7cc2ff;
+}
+
+.icon[data-kind='html'] {
+  color: #ff9068;
+}
+
+.iconFill {
+  fill: currentColor;
+}
+
+/* Letters knocked out of the filled square. */
+.iconText {
+  fill: #111113;
+  font-family: var(--font-text);
+  font-size: 6.6px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* The "module" dot: a CSS file that is a CSS Module. */
+.iconDot {
+  fill: #7fdccb;
+  stroke: #111113;
+  stroke-width: 1.4;
+}
+
+.copy {
+  flex: none;
+  height: 28px;
+  padding: 0 11px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--raise);
+  font-family: var(--font-text);
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.copy:hover {
+  border-color: rgb(255 255 255 / 0.3);
+}
+
+.copy[data-state='done'] {
+  color: var(--rig);
+  border-color: rgb(255 212 0 / 0.5);
+}
+
+.pre {
+  margin: 0;
+  padding: 16px 18px 18px;
+  overflow-x: auto;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: #e4e4e8;
+  tab-size: 2;
+}
+
+.pre:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Syntax tokens. Every colour clears 4.5:1 on the code surface and on the examples'
+   red and green diff tints. Rig yellow is reserved for values: numbers and booleans. */
+.kw {
+  color: #c4a7ff;
+}
+
+.str {
+  color: #b5dc9c;
+}
+
+.num {
+  color: var(--rig);
+}
+
+.com {
+  color: #8a8e97;
+  font-style: italic;
+}
+
+.fn {
+  color: #7cc2ff;
+}
+
+.type {
+  color: #7fdccb;
+}
+
+.prop {
+  color: #eecba3;
+}
+
+.tag {
+  color: #ff9d8c;
+}
+
+.attr {
+  color: #eecba3;
+}
+
+.var {
+  color: #f5a8d4;
+}
+
+.sel {
+  color: #7fdccb;
+}
+
+.punct {
+  color: #9a9ea8;
+}
+
+@media (max-width: 640px) {
+  .pre {
+    font-size: 12px;
+    padding: 14px 14px 16px;
+  }
+}
+
+/* Package-manager switch in an install block's header. */
+.pms {
+  display: flex;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pms::-webkit-scrollbar {
+  display: none;
+}
+
+.pms button {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 9px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s, border-color 0.15s;
+}
+
+.pms button:hover {
+  color: var(--text);
+}
+
+.pms button[aria-selected='true'] {
+  border-color: rgb(255 212 0 / 0.45);
+  background: rgb(255 212 0 / 0.08);
+  color: var(--rig);
+}
+
+.pmLogo {
+  flex: none;
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
+
+/* With every mark on the tabs, the terminal glyph only takes room. */
+.head:has(.pms) > .label > .icon {
+  display: none;
+}
+
+.head:has(.pms) {
+  padding-left: 8px;
+}
+
+/* Five managers and Copy fit a 320 px header without scrolling: names only. */
+@media (max-width: 480px) {
+  .pmLogo {
+    display: none;
+  }
+
+  .pms {
+    gap: 0;
+  }
+
+  .pms button {
+    padding: 0 5px;
+  }
+}

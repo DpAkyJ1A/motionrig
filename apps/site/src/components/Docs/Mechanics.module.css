@@ -1,0 +1,357 @@
+/*
+ * A flowchart with one spine down the centre. Connectors are real elements in their own grid
+ * cells (or pseudo-elements of the list items they join), so every line ends on a box.
+ */
+.flow {
+  --wire: var(--faint);
+  --head: 5px;
+  display: grid;
+  margin: 0;
+  padding: clamp(18px, 3vw, 28px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #141518;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.flow code {
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 12.5px;
+  color: var(--text);
+}
+
+/* Arrowheads: one triangle, pointed by the rule that places it. */
+.down::after,
+.h.headEnd::after,
+.h.headStart::after {
+  content: '';
+  position: absolute;
+  border: var(--head) solid transparent;
+}
+
+.down {
+  position: relative;
+  justify-self: center;
+  width: 1px;
+  height: 36px;
+  background: linear-gradient(var(--wire), var(--wire)) no-repeat top / 1px calc(100% - var(--head));
+}
+
+.down::after {
+  left: calc(-1 * var(--head) + 0.5px);
+  bottom: calc(-1 * var(--head));
+  border-top-color: var(--wire);
+}
+
+.down span {
+  position: absolute;
+  top: 50%;
+  left: 14px;
+  width: max-content;
+  max-width: min(36ch, 42vw);
+  transform: translateY(-50%);
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+/* A horizontal connector filling its grid cell. */
+.h {
+  position: relative;
+  align-self: center;
+  height: 1px;
+  background: var(--wire);
+}
+
+.h.headEnd {
+  margin-right: var(--head);
+}
+
+.h.headEnd::after {
+  left: 100%;
+  top: calc(-1 * var(--head) + 0.5px);
+  border-left-color: var(--wire);
+}
+
+.h.headStart {
+  margin-left: var(--head);
+}
+
+.h.headStart::after {
+  right: 100%;
+  top: calc(-1 * var(--head) + 0.5px);
+  border-right-color: var(--wire);
+}
+
+.node {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  text-align: center;
+  color: #c3c4ca;
+}
+
+.node b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.call {
+  justify-self: center;
+  border-color: rgb(255 255 255 / 0.18);
+}
+
+.call code {
+  color: var(--rig);
+}
+
+/* Symmetric columns keep the decision on the spine. */
+.gate {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32px auto 32px minmax(0, 1fr);
+  align-items: center;
+}
+
+.decision {
+  border-color: rgb(255 255 255 / 0.24);
+}
+
+.end {
+  border-style: dashed;
+  color: var(--muted);
+}
+
+.step {
+  justify-self: center;
+  max-width: 52ch;
+}
+
+.store {
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.06);
+}
+
+.hub {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 36px auto 36px minmax(0, 1fr);
+  align-items: center;
+  margin-top: 24px;
+}
+
+/* The spine comes in from the top of the column and ends on the object; an equal spacer below keeps it centred. */
+.core {
+  position: relative;
+  align-self: stretch;
+  /* Reaches up through the hub's top margin so the spine meets Register. */
+  margin-top: -24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.core::before,
+.core::after {
+  content: '';
+  flex: 1 0 36px;
+}
+
+/* 24px more than the spacer below: that's the stretch above the hub, so the object stays level with the wires. */
+.core::before {
+  flex-basis: 60px;
+  width: 1px;
+  margin-bottom: var(--head);
+  background: var(--wire);
+}
+
+.core::after {
+  margin-top: var(--head);
+}
+
+.object {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+  max-width: 17ch;
+  padding: 16px 18px;
+  border: 1.5px solid var(--rig);
+  border-radius: 12px;
+  background: rgb(255 212 0 / 0.06);
+  text-align: center;
+  color: #c3c4ca;
+}
+
+/* The spine's arrowhead, sitting on the object's top edge. */
+.object::before {
+  content: '';
+  position: absolute;
+  left: calc(50% - var(--head));
+  bottom: 100%;
+  border: var(--head) solid transparent;
+  border-bottom: 0;
+  border-top-color: var(--wire);
+}
+
+.object code {
+  font-size: 14px;
+  color: var(--rig);
+}
+
+.side {
+  display: grid;
+  gap: 8px;
+}
+
+.side li {
+  position: relative;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.side b {
+  display: block;
+  color: var(--text);
+  font-weight: 600;
+}
+
+/*
+ * Each list joins its wire through a bus: every item draws a tick to the bus and its own
+ * stretch of it, from the item above's midpoint gap to the next, so the bus runs exactly
+ * from the first item's centre to the last one's.
+ */
+.writes {
+  padding-right: 14px;
+}
+
+.reads {
+  padding-left: 14px;
+}
+
+.side li::before,
+.side li::after {
+  content: '';
+  position: absolute;
+  background: var(--wire);
+}
+
+.side li::after {
+  top: 50%;
+  width: 14px;
+  height: 1px;
+}
+
+.side li::before {
+  top: -4px;
+  bottom: -4px;
+  width: 1px;
+}
+
+.side li:first-child::before {
+  top: 50%;
+}
+
+.side li:last-child::before {
+  bottom: 50%;
+}
+
+.writes li::after {
+  left: 100%;
+}
+
+.writes li::before {
+  left: calc(100% + 13px);
+}
+
+.reads li::after {
+  right: 100%;
+}
+
+.reads li::before {
+  right: calc(100% + 13px);
+}
+
+.loop {
+  justify-self: center;
+  margin-top: 22px;
+  padding: 6px 14px;
+  border: 1px dashed var(--line);
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.loop span {
+  color: var(--rig);
+}
+
+@media (max-width: 640px) {
+  .gate {
+    grid-template-columns: minmax(0, 1fr) 16px auto 16px minmax(0, 1fr);
+  }
+
+  .gate .node {
+    padding: 10px 8px;
+    font-size: 12.5px;
+  }
+
+  /* One column: writes, then the object, then reads, joined on the spine. */
+  .hub {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hub > .h,
+  .side li::before,
+  .side li::after {
+    display: none;
+  }
+
+  .writes,
+  .reads {
+    padding: 0;
+  }
+
+  /* The spine goes straight from Register into the object; writes and reads follow as captioned lists. */
+  .hub {
+    gap: 8px;
+    margin-top: 0;
+  }
+
+  .core {
+    order: -1;
+    margin-top: 0;
+  }
+
+  .core::before {
+    flex: 0 0 36px;
+  }
+
+  .core::after {
+    display: none;
+  }
+
+  .side::before {
+    content: attr(aria-label);
+    margin-top: 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+
+  .object {
+    max-width: none;
+  }
+}

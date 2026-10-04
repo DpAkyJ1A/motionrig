@@ -1,0 +1,57 @@
+/* Top-aligned in its stage: a centred list would jump by half of every height change. */
+.list {
+  align-self: start;
+  width: min(380px, 100%);
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+}
+
+/* Each row draws the line under it, and the closing line is its own element, so every
+   line travels with the row it belongs to. */
+.row,
+.end {
+  display: block;
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+
+.end {
+  border-bottom: 0;
+}
+
+.row button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  min-height: 48px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.row button::after {
+  content: '+';
+  font-size: 18px;
+  color: #ffd400;
+  transition: rotate 0.3s;
+}
+
+.row[data-open='true'] button::after {
+  rotate: 45deg;
+}
+
+.row p {
+  margin: 0;
+  padding: 0 4px 14px;
+  font-size: 14px;
+  color: #9b9da6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row button::after {
+    transition: none;
+  }
+}

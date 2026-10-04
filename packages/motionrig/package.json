@@ -1,0 +1,122 @@
+{
+  "name": "motionrig",
+  "version": "0.1.0",
+  "description": "Rig your site's motion, hand designers the controls. A tuning panel for animations on the live site: GSAP, CSS variables, WebGL — and a straight path from the designer's tweaks back to code.",
+  "keywords": [
+    "animation",
+    "motion",
+    "gsap",
+    "tweak",
+    "tuning",
+    "panel",
+    "design-handoff",
+    "devtools",
+    "easing",
+    "cubic-bezier",
+    "css-variables",
+    "react",
+    "nextjs"
+  ],
+  "license": "MIT",
+  "author": "devazx (https://github.com/DpAkyJ1A)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DpAkyJ1A/motionrig.git",
+    "directory": "packages/motionrig"
+  },
+  "homepage": "https://github.com/DpAkyJ1A/motionrig#readme",
+  "bugs": "https://github.com/DpAkyJ1A/motionrig/issues",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "default": "./dist/react.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "bin": {
+    "motionrig": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && tsdown",
+    "dev": "tsdown --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "size": "size-limit",
+    "lint:pkg": "publint --strict && attw --pack . --profile esm-only",
+    "check": "pnpm typecheck && pnpm test && pnpm build && pnpm lint:pkg && pnpm size",
+    "prepublishOnly": "pnpm check"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@size-limit/preset-small-lib": "^14.1.0",
+    "@types/node": "^22",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "happy-dom": "^20.14.5",
+    "publint": "^0.3.24",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "size-limit": "^14.1.0",
+    "tsdown": "^0.23.0",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.2"
+  },
+  "size-limit": [
+    {
+      "name": "core — rig() + configure()",
+      "path": "dist/index.js",
+      "import": "{ rig, configure }",
+      "limit": "3 kB",
+      "gzip": true
+    },
+    {
+      "name": "core — everything",
+      "path": "dist/index.js",
+      "limit": "4 kB",
+      "gzip": true,
+      "ignore": [
+        "./panel.js"
+      ]
+    },
+    {
+      "name": "react bindings",
+      "path": "dist/react.js",
+      "ignore": [
+        "react",
+        "motionrig"
+      ],
+      "limit": "1 kB",
+      "gzip": true
+    },
+    {
+      "name": "panel (lazy, loaded only behind the gate)",
+      "path": "dist/panel.js",
+      "limit": "28 kB",
+      "gzip": true
+    }
+  ]
+}

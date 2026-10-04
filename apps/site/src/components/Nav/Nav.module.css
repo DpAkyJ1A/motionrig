@@ -1,0 +1,325 @@
+.bar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgb(26 28 31 / 0.9);
+  backdrop-filter: blur(14px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+}
+
+.inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: var(--header-h);
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.brand {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.logo {
+  color: var(--rig);
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+.sections,
+.pages {
+  display: flex;
+  gap: 22px;
+}
+
+/* A hairline between "this page" and "other pages". */
+.pages {
+  margin-left: 22px;
+  padding-left: 22px;
+  border-left: 1px solid var(--line);
+}
+
+.links a {
+  position: relative;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.links a:hover,
+.links a[aria-current='page'] {
+  color: var(--text);
+}
+
+/* The current page wears a rig-yellow tick, like a keyed channel. */
+.links a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -21px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--rig);
+}
+
+.pill {
+  flex: none;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11px;
+  color: var(--muted);
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.gh {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  margin-inline: -8px;
+  border-radius: 999px;
+  color: var(--muted);
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.gh:hover {
+  color: var(--text);
+  background: rgb(255 255 255 / 0.06);
+}
+
+.open {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 14px 0 11px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--rig);
+  color: var(--rig-ink);
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 0.15s, background-color 0.15s;
+}
+
+.open:hover {
+  background: #ffe04d;
+}
+
+.open:active {
+  transform: scale(0.97);
+}
+
+.menuWrap {
+  display: contents;
+}
+
+.menu {
+  flex: none;
+  display: none;
+  align-items: center;
+  gap: 7px;
+  height: 38px;
+  padding: 0 13px 0 11px;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 999px;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.menu:hover {
+  border-color: rgb(255 255 255 / 0.4);
+}
+
+/* Popovers sit in the top layer; this one docks under the bar. */
+.sheet {
+  position: fixed;
+  inset: var(--header-h) 0 auto;
+  width: auto;
+  margin: 0;
+  padding: 8px var(--gutter) 20px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  /* Opaque: the hero's display type showed through even 3% of transparency. */
+  background: rgb(26 28 31);
+  color: var(--text);
+  box-shadow: 0 24px 48px rgb(0 0 0 / 0.45);
+}
+
+/* Dims the page, not the bar: the Menu button stays visible and clickable as the toggle. */
+.sheet::backdrop {
+  inset: var(--header-h) 0 0;
+  background: rgb(0 0 0 / 0.45);
+}
+
+.sheet nav {
+  display: grid;
+}
+
+.sheet a {
+  display: flex;
+  align-items: center;
+  min-height: 52px;
+  border-bottom: 1px solid var(--line-soft);
+  font-size: 18px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* The last item of each group: the group rule below Quickstart replaces its own hairline. */
+.sheet nav > a:last-of-type,
+.sheetPages a:last-child {
+  border-bottom: 0;
+}
+
+/* Opening: the sheet unrolls from under the bar and the items follow, one beat apart.
+   Closing is quicker and all at once: the sheet rolls back up while the items fade. */
+@media (prefers-reduced-motion: no-preference) {
+  .sheet {
+    clip-path: inset(0 0 100% 0);
+    transition:
+      clip-path 0.24s cubic-bezier(0.55, 0, 0.75, 0.2),
+      overlay 0.24s allow-discrete,
+      display 0.24s allow-discrete;
+  }
+
+  .sheet:popover-open {
+    /* Negative bottom inset leaves room for the drop shadow. */
+    clip-path: inset(0 0 -64px 0);
+    transition-duration: 0.42s;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .sheet::backdrop {
+    opacity: 0;
+    transition:
+      opacity 0.24s,
+      overlay 0.24s allow-discrete,
+      display 0.24s allow-discrete;
+  }
+
+  .sheet:popover-open::backdrop {
+    opacity: 1;
+    transition-duration: 0.32s;
+  }
+
+  .sheet a {
+    opacity: 0;
+    translate: 0 -10px;
+    transition:
+      opacity 0.14s,
+      translate 0.14s;
+  }
+
+  .sheet:popover-open a {
+    opacity: 1;
+    translate: 0 0;
+    transition-duration: 0.3s, 0.45s;
+    transition-timing-function: ease-out, cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: calc(0.06s + var(--i, 0) * 0.035s);
+  }
+
+  @starting-style {
+    .sheet:popover-open {
+      clip-path: inset(0 0 100% 0);
+    }
+
+    .sheet:popover-open::backdrop {
+      opacity: 0;
+    }
+
+    .sheet:popover-open a {
+      opacity: 0;
+      translate: 0 -10px;
+    }
+  }
+}
+
+.sheetPages {
+  display: grid;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.sheet a[aria-current='page'] {
+  color: var(--rig);
+}
+
+/* Narrower than the full bar: the landing's sections move into Menu, the pill goes (the footer repeats it). */
+@media (max-width: 1179px) {
+  .sections,
+  .pill {
+    display: none;
+  }
+
+  .pages {
+    margin-left: 0;
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .menu {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 719px) {
+  .links,
+  .gh {
+    display: none;
+  }
+
+  .brand {
+    margin-right: auto;
+  }
+}
+
+/* Brand, an icon-only Menu and a short "Open" fit a 320px bar. The names stay "Menu" and "Open the panel". */
+@media (max-width: 519px) {
+  .inner {
+    gap: 10px;
+  }
+
+  .menu {
+    width: 38px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .menuLabel,
+  .long {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}

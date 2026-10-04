@@ -1,0 +1,56 @@
+/* The shell of the inner pages (docs, examples): an intro, then a side menu beside the content. */
+.intro {
+  position: relative;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: clamp(56px, 9vw, 120px) var(--gutter) clamp(40px, 6vw, 80px);
+  display: grid;
+  gap: 22px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.kicker svg {
+  color: var(--rig);
+}
+
+.introTitle {
+  max-width: 16ch;
+  font-size: clamp(42px, 7vw, 96px);
+}
+
+.layout {
+  --subnav-h: 0px;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: 208px minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: start;
+}
+
+.content {
+  min-width: 0;
+}
+
+/* Anchors inside clear the sticky phone menu as well as the header. */
+.content [id] {
+  scroll-margin-top: var(--subnav-h);
+}
+
+@media (max-width: 959px) {
+  .layout {
+    --subnav-h: 52px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}

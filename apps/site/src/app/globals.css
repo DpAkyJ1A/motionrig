@@ -1,0 +1,162 @@
+:root {
+  color-scheme: dark;
+
+  --bg-top: #1f2226;
+  --bg: #17191c;
+  --bg-deep: #121316;
+  --surface: #111113;
+  --raise: #1c1e22;
+  --line: rgb(255 255 255 / 0.08);
+  --line-soft: rgb(255 255 255 / 0.05);
+  --text: #eeeef0;
+  --muted: #9b9da6;
+  --faint: #7f838d;
+  --rig: #ffd400;
+  --rig-ink: #111113;
+  --blue: #3d9bff;
+  --red: #ff4d3d;
+
+  --font-display: var(--font-anybody), 'Arial Black', sans-serif;
+  --font-text: var(--font-schibsted), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --max: 1320px;
+  --header-h: 64px;
+  /* Where an anchor lands: this far below the sticky header. */
+  --anchor-gap: 28px;
+  --radius: 14px;
+  --radius-sm: 8px;
+
+  /* Display type is a css rig ("type"): these fallbacks are the code defaults. */
+  --display-stretch: var(--type-width, 118%);
+  --display-weight: var(--type-weight, 780);
+  --display-tracking: var(--type-tracking, -0.035em);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + var(--anchor-gap));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: linear-gradient(180deg, var(--bg-top) 0, var(--bg) 900px, var(--bg-deep) 100%);
+  color: var(--text);
+  font-family: var(--font-text);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+/* The top-view grid of a 3D viewport, fixed behind everything. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+  mask-image: radial-gradient(120% 90% at 50% 0%, #000 30%, rgb(0 0 0 / 0.35) 100%);
+  opacity: 0.55;
+}
+
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+pre,
+dl,
+dd,
+ol,
+ul {
+  margin: 0;
+}
+
+ol,
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--rig);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--rig);
+  color: var(--rig-ink);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  z-index: 100;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: var(--rig);
+  color: var(--rig-ink);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip:focus-visible {
+  transform: none;
+}

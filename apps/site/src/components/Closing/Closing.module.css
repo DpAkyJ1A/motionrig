@@ -1,0 +1,86 @@
+/* One last viewport pane: the same grid as the demos, with the way in. */
+.card {
+  display: grid;
+  justify-items: start;
+  gap: 24px;
+  padding: clamp(32px, 6vw, 80px) clamp(20px, 5vw, 72px);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background-color: #141518;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+
+.title {
+  max-width: 14ch;
+  font-family: var(--font-display);
+  font-stretch: clamp(50%, calc(var(--display-stretch) * 0.72), 150%);
+  font-weight: var(--display-weight);
+  letter-spacing: calc(var(--display-tracking) + 0.02em);
+  font-size: clamp(44px, 8vw, 112px);
+  line-height: 0.92;
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 52ch;
+  font-size: clamp(17px, 1.4vw, 19px);
+  line-height: 1.58;
+  color: #c3c4ca;
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  height: 52px;
+  padding: 0 24px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s, background-color 0.15s, border-color 0.15s;
+}
+
+.primary {
+  padding-left: 18px;
+  border: 0;
+  background: var(--rig);
+  color: var(--rig-ink);
+}
+
+.primary:hover {
+  background: #ffe04d;
+}
+
+.secondary {
+  border: 1px solid rgb(255 255 255 / 0.2);
+  color: var(--text);
+}
+
+.secondary:hover {
+  border-color: rgb(255 255 255 / 0.45);
+}
+
+.primary:active,
+.secondary:active {
+  transform: scale(0.97);
+}
+
+.note {
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 12px;
+  color: var(--muted);
+}

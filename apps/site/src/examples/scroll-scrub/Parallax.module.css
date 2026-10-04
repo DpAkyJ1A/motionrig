@@ -1,0 +1,40 @@
+.stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* Placed by left/top only: GSAP owns the transform (and folds a CSS translate into it). */
+.back,
+.middle,
+.front {
+  position: absolute;
+  border-radius: 14px;
+}
+
+.back {
+  left: calc(50% - 192px);
+  top: calc(50% - 90px);
+  width: 168px;
+  height: 112px;
+  border: 1px dashed rgb(255 255 255 / 0.22);
+}
+
+.middle {
+  left: calc(50% - 4px);
+  top: calc(50% - 38px);
+  width: 140px;
+  height: 96px;
+  border: 1px solid rgb(255 255 255 / 0.24);
+  background: rgb(255 255 255 / 0.04);
+}
+
+.front {
+  left: calc(50% - 45px);
+  top: calc(50% + 12px);
+  width: 64px;
+  height: 64px;
+  border: 2px solid #ffd400;
+  border-radius: 50%;
+  box-shadow: 0 0 0 10px rgb(255 212 0 / 0.08);
+}

@@ -1,0 +1,18 @@
+[
+  {
+    "name": "core — rig() + configure()",
+    "bytes": 2780
+  },
+  {
+    "name": "core — everything",
+    "bytes": 3083
+  },
+  {
+    "name": "react bindings",
+    "bytes": 212
+  },
+  {
+    "name": "panel (lazy, loaded only behind the gate)",
+    "bytes": 22670
+  }
+]

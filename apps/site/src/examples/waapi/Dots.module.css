@@ -1,0 +1,15 @@
+.dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 18px 22px;
+  border-radius: 22px 22px 22px 6px;
+  background: #23252b;
+}
+
+.dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffd400;
+}

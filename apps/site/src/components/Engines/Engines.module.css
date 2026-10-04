@@ -1,0 +1,84 @@
+/* Hairline grid: the tiles share borders, like a spec sheet, not floating cards. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.grid li {
+  display: grid;
+}
+
+.tile {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 14px;
+  padding: clamp(20px, 2.2vw, 28px);
+  background: var(--bg);
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.2s;
+}
+
+.tile:hover {
+  background: #141518;
+}
+
+.tile:focus-visible {
+  outline-offset: -2px;
+}
+
+.name {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.line {
+  align-self: start;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #e4e4e8;
+  overflow-wrap: anywhere;
+}
+
+.recipe {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.recipe svg {
+  flex: none;
+  transition: translate 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tile:hover .recipe {
+  color: var(--text);
+}
+
+.tile:hover .recipe svg {
+  translate: 3px 0;
+  color: var(--rig);
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

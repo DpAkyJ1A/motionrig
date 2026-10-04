@@ -1,0 +1,24 @@
+{
+  "name": "motionrig-monorepo",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.30.3",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "pnpm --filter motionrig build",
+    "dev": "pnpm --filter motionrig dev",
+    "test": "pnpm --filter motionrig test",
+    "typecheck": "pnpm -r typecheck",
+    "check": "pnpm --filter motionrig check",
+    "site": "pnpm --filter site dev",
+    "site:build": "pnpm build && pnpm --filter site build",
+    "changeset": "changeset",
+    "release": "pnpm --filter motionrig check && changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3",
+    "typescript": "^5.9.3"
+  }
+}

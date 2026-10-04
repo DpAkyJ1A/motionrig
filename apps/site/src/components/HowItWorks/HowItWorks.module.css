@@ -1,0 +1,226 @@
+.steps {
+  display: grid;
+  gap: 0;
+  counter-reset: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: minmax(260px, 380px) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+  padding: clamp(36px, 5vw, 64px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.text {
+  display: grid;
+  gap: 14px;
+  color: #c3c4ca;
+}
+
+.text h3 {
+  font-family: var(--font-display);
+  font-stretch: var(--display-stretch);
+  font-weight: var(--display-weight);
+  letter-spacing: var(--display-tracking);
+  font-size: clamp(30px, 3.2vw, 44px);
+  line-height: 1;
+  color: var(--text);
+}
+
+.num {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--rig);
+  border-radius: 50%;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--rig);
+}
+
+.text code {
+  font-size: 0.84em;
+  color: var(--text);
+  background: rgb(255 255 255 / 0.07);
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+}
+
+.fine {
+  font-size: 14.5px;
+  color: var(--muted);
+}
+
+.try {
+  justify-self: start;
+  margin-top: 6px;
+  height: 42px;
+  padding: 0 18px;
+  border: 1px solid rgb(255 212 0 / 0.55);
+  border-radius: 999px;
+  background: rgb(255 212 0 / 0.06);
+  color: var(--rig);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.try:hover {
+  background: rgb(255 212 0 / 0.14);
+}
+
+.ways {
+  display: grid;
+  gap: 12px;
+}
+
+.ways li {
+  padding-left: 18px;
+  position: relative;
+}
+
+.ways li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid var(--rig);
+  border-radius: 50%;
+}
+
+.ways strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+@media (max-width: 900px) {
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The share link's trip, three nodes joined by arrows; a column on phones. */
+.flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+}
+
+.flowNode {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+}
+
+.flowNode:first-child {
+  border-color: rgb(255 212 0 / 0.45);
+}
+
+.flowNode + .flowNode::before {
+  content: '→';
+  position: absolute;
+  left: -18px;
+  top: 14px;
+  color: var(--faint);
+  font-size: 14px;
+}
+
+.flowKind {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.flowKind svg {
+  flex: none;
+  color: var(--rig);
+}
+
+.flowUrl {
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11.5px;
+  color: #e4e4e8;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flowWindow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 0;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 6px;
+  background: rgb(255 255 255 / 0.05);
+}
+
+.flowWindow i {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.2);
+}
+
+.flowWindow b {
+  overflow: hidden;
+  margin-left: 6px;
+  font-family: var(--font-mono);
+  font-stretch: 87.5%;
+  font-size: 11px;
+  font-weight: 400;
+  color: #c3c4ca;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flowNote {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+@media (max-width: 700px) {
+  .flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .flowNode + .flowNode::before {
+    content: '↓';
+    left: 18px;
+    top: -18px;
+  }
+}
+
+.shipCol {
+  display: grid;
+  min-width: 0;
+}
+
+.em {
+  color: var(--rig);
+}
