@@ -24,7 +24,7 @@
     "url": "git+https://github.com/DpAkyJ1A/motionrig.git",
     "directory": "packages/motionrig"
   },
-  "homepage": "https://github.com/DpAkyJ1A/motionrig#readme",
+  "homepage": "https://motionrig.vercel.app",
   "bugs": "https://github.com/DpAkyJ1A/motionrig/issues",
   "type": "module",
   "sideEffects": false,
