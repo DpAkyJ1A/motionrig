@@ -127,8 +127,8 @@ export default function ExamplesPage() {
                     <p className={s.when}>{inline(ex.when)}</p>
                     <p className={s.docs}>
                       <span>In the docs:</span>
-                      {ex.docs.map(([label, anchor]) => (
-                        <Link key={anchor + label} href={`/docs#${anchor}`}>
+                      {ex.docs.map(([label, href]) => (
+                        <Link key={href + label} href={href}>
                           {label}
                         </Link>
                       ))}

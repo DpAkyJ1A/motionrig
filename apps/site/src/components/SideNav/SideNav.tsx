@@ -9,7 +9,7 @@ export type NavItem = { id: string; label: string; meta?: string; hot?: boolean;
 const flat = (items: NavItem[]): NavItem[] => items.flatMap((i) => [i, ...flat(i.children ?? [])]);
 
 /** The id of the last section whose top has passed ~a third of the viewport (or the last one at the very bottom). */
-function useActive(ids: string[]): string | undefined {
+export function useActive(ids: string[]): string | undefined {
   const [active, setActive] = useState<string>();
   useEffect(() => {
     const els = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);

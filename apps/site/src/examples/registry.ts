@@ -13,7 +13,7 @@ export type Example = {
   engine: string;
   when: string;
   files: string[];
-  /** The docs sections the recipe leans on: label and /docs anchor. */
+  /** The docs sections the recipe leans on: label and docs URL. */
   docs: [string, string][];
   /** The hardest recipe: marked with the hellfire badge here and in the side menu. */
   hot?: boolean;
@@ -28,7 +28,7 @@ export const EXAMPLES: Example[] = [
     engine: 'transition',
     when: 'Hover and focus states with no JavaScript: `css: true` turns each value into a custom property, and `unit` gives it its px or s.',
     files: ['Card.module.css', 'Cards.tsx', 'card.rig.ts'],
-    docs: [['CSS binding', 'css'], ['unit', 'controls'], ['Locate', 'locate']],
+    docs: [['CSS variables', '/docs/css-variables'], ['unit', '/docs/controls#customize'], ['Locate', '/docs/panel#whats-in-it']],
   },
   {
     slug: 'keyframes',
@@ -38,7 +38,7 @@ export const EXAMPLES: Example[] = [
     engine: '@keyframes',
     when: 'Loaders, pulses and marquees: duration, stagger and easing go in through `var()`, and so does the scale inside `@keyframes`.',
     files: ['Pulse.module.css', 'Pulse.tsx', 'pulse.rig.ts'],
-    docs: [['CSS binding', 'css'], ['css prefix', 'meta']],
+    docs: [['CSS variables', '/docs/css-variables'], ['unit', '/docs/controls#customize']],
   },
   {
     slug: 'gsap-from',
@@ -48,7 +48,7 @@ export const EXAMPLES: Example[] = [
     engine: 'gsap.from()',
     when: 'One-shot entrances: read the rig when the tween is made, and give the designer `replay` to see each edit.',
     files: ['Feed.tsx', 'feed.rig.ts'],
-    docs: [['replay', 'applies'], ['Eases', 'eases']],
+    docs: [['replay', '/docs/live-updates#replay'], ['Eases', '/docs/eases']],
   },
   {
     slug: 'gsap-timeline',
@@ -58,7 +58,7 @@ export const EXAMPLES: Example[] = [
     engine: 'gsap.timeline()',
     when: 'Choreography: one nested group per step, each with its own duration and ease, rebuilt from `useRig` on every edit.',
     files: ['Toast.tsx', 'toast.rig.ts'],
-    docs: [['useRig', 'use-rig'], ['Groups', 'controls']],
+    docs: [['useRig', '/docs/react#userig'], ['Groups', '/docs/controls#customize']],
   },
   {
     slug: 'scroll-scrub',
@@ -68,7 +68,7 @@ export const EXAMPLES: Example[] = [
     engine: 'ScrollTrigger',
     when: 'Scroll-linked motion: start, end and scrub are baked in at creation, so `onChange` rebuilds the trigger.',
     files: ['Parallax.tsx', 'parallax.rig.ts'],
-    docs: [['onChange', 'meta'], ['When an edit shows', 'applies']],
+    docs: [['onChange', '/docs/live-updates#rebuild-on-change'], ['Live updates', '/docs/live-updates']],
   },
   {
     slug: 'motion-spring',
@@ -78,7 +78,7 @@ export const EXAMPLES: Example[] = [
     engine: 'motion/react',
     when: 'Motion (Framer Motion) components: transition props are render values, so `useRig` feeds them and an edit re-renders.',
     files: ['Tabs.tsx', 'tabs.rig.ts'],
-    docs: [['useRig', 'use-rig']],
+    docs: [['useRig', '/docs/react#userig']],
   },
   {
     slug: 'waapi',
@@ -88,7 +88,7 @@ export const EXAMPLES: Example[] = [
     engine: 'element.animate()',
     when: 'Native, dependency-free loops: `subscribe()` says when to make new Animations from the tuned values.',
     files: ['Dots.tsx', 'dots.rig.ts'],
-    docs: [['subscribe', 'store'], ['Eases', 'eases']],
+    docs: [['subscribe', '/docs/runtime#store'], ['Eases', '/docs/eases']],
   },
   {
     slug: 'canvas',
@@ -98,7 +98,7 @@ export const EXAMPLES: Example[] = [
     engine: 'canvas 2D',
     when: 'Anything drawn per frame (canvas, WebGL uniforms): read the rig inside the loop and edits show on the next frame.',
     files: ['Wave.tsx', 'wave.rig.ts'],
-    docs: [['When an edit shows', 'applies']],
+    docs: [['Live updates', '/docs/live-updates']],
   },
   {
     slug: 'react-state',
@@ -108,7 +108,7 @@ export const EXAMPLES: Example[] = [
     engine: 'React state',
     when: 'Motion that follows React state, like an accordion: state changes the layout once, then the rows glide on transforms timed by `useRig`, so no frame re-runs layout. An edit shows on the next toggle.',
     files: ['Accordion.tsx', 'accordion.rig.ts'],
-    docs: [['useRig', 'use-rig'], ['When an edit shows', 'applies']],
+    docs: [['useRig', '/docs/react#userig'], ['Live updates', '/docs/live-updates']],
   },
   {
     slug: 'gsap-composite',
@@ -118,7 +118,7 @@ export const EXAMPLES: Example[] = [
     engine: 'gsap.timeline() · 6 stages',
     when: 'Big choreography, rigged in one sitting: grid ↔ list in six stages. One nested group per stage with its duration, ease, stagger and an `offset` that becomes its position parameter (Text drives both the first and the last stage), plus a global `speed`. The designer tunes each stage directly, and nobody spends an hour explaining “make the second bit snappier”.',
     files: ['Gallery.tsx', 'gallery.rig.ts'],
-    docs: [['Groups', 'controls'], ['Order', 'inference'], ['replay', 'applies']],
+    docs: [['Groups', '/docs/controls#customize'], ['Order', '/docs/controls#order'], ['replay', '/docs/live-updates#replay']],
     hot: true,
   },
 ];

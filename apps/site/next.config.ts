@@ -20,5 +20,12 @@ export default function config(phase: string): NextConfig {
     poweredByHeader: false,
     // The workspace root holds the lockfile and the linked `motionrig` package.
     turbopack: { root: path.join(__dirname, '../..') },
+    // Every docs page has a Markdown twin at its URL plus `.md` (src/app/md).
+    async rewrites() {
+      return [
+        { source: '/docs.md', destination: '/md/introduction' },
+        { source: '/docs/:slug\\.md', destination: '/md/:slug' },
+      ];
+    },
   };
 }

@@ -3,7 +3,7 @@
 import { type KeyboardEvent, type ReactNode, useId, useLayoutEffect, useRef, useState } from 'react';
 import d from './Docs.module.css';
 
-export type Setup = { id: string; label: string; logo: string; panel: ReactNode };
+export type Setup = { id: string; label: string; logo?: string; panel: ReactNode };
 
 const KEY = 'motionrig-site:setup';
 
@@ -78,9 +78,11 @@ export function SetupTabs({ setups }: { setups: Setup[] }) {
             tabIndex={x.id === active ? 0 : -1}
             onClick={() => pick(x.id)}
           >
-            <svg className={d.setupLogo} viewBox="0 0 24 24" aria-hidden="true">
-              <path d={x.logo} />
-            </svg>
+            {x.logo && (
+              <svg className={d.setupLogo} viewBox="0 0 24 24" aria-hidden="true">
+                <path d={x.logo} />
+              </svg>
+            )}
             {x.label}
           </button>
         ))}

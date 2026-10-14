@@ -1,0 +1,30 @@
+/* The docs menu reuses the side menu's look (SideNav.module.css); these are its additions. */
+.desktop {
+  gap: 26px;
+}
+
+.group {
+  display: grid;
+  gap: 10px;
+}
+
+.desktop a[aria-current='page'],
+.mobile a[aria-current='page'] {
+  font-weight: 500;
+}
+
+/* The yellow stretch marks the section you're reading; the page only gets it while none is lit. */
+.group li:has(> ol a[aria-current]) > a[aria-current='page']::before {
+  transform: scaleY(0);
+}
+
+.section {
+  color: var(--muted);
+}
+
+/* `aside` outranks the side menu's own `.disclosure nav` padding. */
+aside nav.mobile {
+  display: grid;
+  gap: 22px;
+  padding-top: 16px;
+}

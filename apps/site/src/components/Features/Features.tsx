@@ -23,7 +23,7 @@ const FEATURES: Feature[] = [
   {
     key: 'cost',
     title: 'Zero cost for visitors',
-    docs: 'internals',
+    docs: '/docs#how-it-works',
     body: (
       <>
         <p>
@@ -51,7 +51,7 @@ const FEATURES: Feature[] = [
   {
     key: 'baseline',
     title: 'Code wins',
-    docs: 'persistence',
+    docs: '/docs/panel#persistence',
     body: (
       <p>
         Every tweak is stored with the code default it was tuned against. Paste new values into the code and the stale
@@ -63,7 +63,7 @@ const FEATURES: Feature[] = [
   {
     key: 'useRig',
     title: 'Next.js and React, or anything else',
-    docs: 'setup',
+    docs: '/docs/installation#setup',
     body: (
       <p>
         <code>useRig()</code> gives you values to render, hydration-safe, and a dependency that changes when a
@@ -75,7 +75,7 @@ const FEATURES: Feature[] = [
   {
     key: 'eases',
     title: 'Your ease palette, and a bezier editor',
-    docs: 'eases',
+    docs: '/docs/eases',
     body: (
       <p>
         Name the project’s curves once in <code>configure(&#123; eases &#125;)</code>. Designers pick them by name or
@@ -101,12 +101,12 @@ const FEATURES: Feature[] = [
 
 // The smaller things, a few words each: one row on a laptop, the details in the docs.
 const EXTRAS: [label: string, docs: string][] = [
-  ['Dark, light or auto theme', 'theme'],
-  ['Translatable UI', 'configure'],
-  ['Copy code names its rig', 'share'],
-  ['Bottom sheet on phones', 'anatomy'],
-  ['Copy without HTTPS', 'share'],
-  ['Custom hotkey', 'configure'],
+  ['Dark, light or auto theme', '/docs/configure#theme'],
+  ['Translatable UI', '/docs/configure#messages'],
+  ['Copy code names its rig', '/docs/handoff#copy-code'],
+  ['Bottom sheet on phones', '/docs/panel#whats-in-it'],
+  ['Copy without HTTPS', '/docs/handoff#copy-code'],
+  ['Custom hotkey', '/docs/configure#hotkey'],
 ];
 
 export function Features() {
@@ -131,7 +131,7 @@ export function Features() {
             <dd>
               <div className={s.body}>
                 {f.body}
-                <Link className={s.docs} href={`/docs#${f.docs}`}>
+                <Link className={s.docs} href={f.docs}>
                   Docs →
                 </Link>
               </div>
@@ -145,7 +145,7 @@ export function Features() {
         <ul>
           {EXTRAS.map(([label, docs]) => (
             <li key={label}>
-              <Link href={`/docs#${docs}`}>{label}</Link>
+              <Link href={docs}>{label}</Link>
             </li>
           ))}
         </ul>

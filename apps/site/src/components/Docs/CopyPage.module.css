@@ -1,0 +1,168 @@
+/* "Copy page": a split button, and a menu under it aligned to its right edge. */
+.root {
+  position: relative;
+  flex: none;
+}
+
+.split {
+  display: flex;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.main,
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s;
+}
+
+.main {
+  gap: 8px;
+  padding: 0 14px 0 12px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.toggle {
+  justify-content: center;
+  width: 36px;
+  border-left: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.main:hover,
+.toggle:hover,
+.toggle[aria-expanded='true'] {
+  background: var(--raise);
+  color: var(--text);
+}
+
+.main:focus-visible,
+.toggle:focus-visible {
+  outline-offset: -3px;
+}
+
+.main[data-state='done'] {
+  color: var(--rig);
+}
+
+.split svg,
+.item > svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.toggle[aria-expanded='true'] svg {
+  rotate: 180deg;
+}
+
+.menu {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 30;
+  display: grid;
+  gap: 2px;
+  width: min(320px, calc(100vw - 2 * var(--gutter)));
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #121316;
+  box-shadow: 0 18px 50px rgb(0 0 0 / 0.5);
+}
+
+.menu[hidden] {
+  display: none;
+}
+
+/* On a phone the button sits under the title, at the left edge: the menu opens rightward. */
+@media (max-width: 560px) {
+  .menu {
+    left: 0;
+    right: auto;
+  }
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.item > svg {
+  margin-top: 3px;
+  width: 18px;
+  height: 18px;
+}
+
+.item span {
+  display: grid;
+  gap: 1px;
+  min-width: 0;
+}
+
+.item b {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.item small {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--faint);
+}
+
+.item:hover,
+.item:focus-visible {
+  background: var(--raise);
+  color: var(--text);
+}
+
+.item:focus-visible {
+  outline-offset: -2px;
+}
+
+.out {
+  width: 12px;
+  height: 12px;
+  fill: none;
+  stroke: var(--faint);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toggle svg {
+    transition: rotate 0.2s;
+  }
+}

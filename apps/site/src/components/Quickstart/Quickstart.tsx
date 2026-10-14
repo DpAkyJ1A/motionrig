@@ -151,7 +151,7 @@ export function Quickstart() {
         ))}
       </ol>
       <p className={sec.next}>
-        <Link href="/docs#setup">
+        <Link href="/docs/installation#setup">
           Full setup for Next.js, React and vanilla JS, and every option, in the docs{' '}
           <span aria-hidden="true">→</span>
         </Link>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-async function copy(text: string): Promise<boolean> {
+export async function copy(text: string): Promise<boolean> {
   try {
     await navigator.clipboard.writeText(text);
     return true;
