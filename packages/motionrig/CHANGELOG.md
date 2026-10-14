@@ -1,5 +1,11 @@
 # motionrig
 
+## 0.1.1
+
+### Patch Changes
+
+- b8a5850: Shorter README with a demo GIF; the full guide moves to the docs site.
+
 ## 0.1.0
 
 Initial release.
