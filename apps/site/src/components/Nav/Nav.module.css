@@ -89,6 +89,15 @@
   border: 1px solid var(--line);
   border-radius: 999px;
   white-space: nowrap;
+  text-decoration: none;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.pill:hover {
+  color: var(--text);
+  border-color: rgb(255 255 255 / 0.2);
 }
 
 .gh {

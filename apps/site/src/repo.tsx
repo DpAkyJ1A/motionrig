@@ -3,6 +3,9 @@ import PKG from 'motionrig/package.json';
 /** The repository, from the package's own `repository.url`, so the site and npm never disagree. */
 export const REPO = PKG.repository.url.replace(/^git\+/, '').replace(/\.git$/, '');
 
+/** The package on npm. */
+export const NPM = `https://www.npmjs.com/package/${PKG.name}`;
+
 /** For links that leave the site: a new tab, so the site stays open behind them. */
 export const NEW_TAB = { target: '_blank', rel: 'noopener' } as const;
 

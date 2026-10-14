@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { PanelButton } from '@/components/PanelButton/PanelButton';
 import { Ring } from '@/components/Ring/Ring';
-import { GitHubMark, NEW_TAB, REPO } from '@/repo';
+import { GitHubMark, NEW_TAB, NPM, REPO } from '@/repo';
+import PKG from 'motionrig/package.json';
 import s from './Nav.module.css';
 import { NavMenu } from './NavMenu';
 
@@ -67,7 +68,9 @@ export function Nav({ page }: { page: Page }) {
             ))}
           </span>
         </nav>
-        <span className={s.pill}>v0.1 · npm soon</span>
+        <a className={s.pill} href={NPM} aria-label={`motionrig ${PKG.version} on npm`} {...NEW_TAB}>
+          v{PKG.version} · npm
+        </a>
         <a className={s.gh} href={REPO} aria-label="motionrig on GitHub" title="GitHub" {...NEW_TAB}>
           <GitHubMark size={18} />
         </a>

@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { ConsentButton } from '@/components/Analytics/Analytics';
 import { Ring } from '@/components/Ring/Ring';
-import { NEW_TAB, REPO } from '@/repo';
+import PKG from 'motionrig/package.json';
+import { NEW_TAB, NPM, REPO } from '@/repo';
 import s from './Footer.module.css';
 
 export function Footer() {
@@ -32,7 +33,9 @@ export function Footer() {
           <ConsentButton className={s.consent} />
           <span>MIT licensed</span>
           <span>Made by devazx</span>
-          <span>v0.1, npm soon</span>
+          <a href={NPM} {...NEW_TAB}>
+            v{PKG.version} on npm
+          </a>
         </p>
       </div>
     </footer>

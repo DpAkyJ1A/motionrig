@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
+import PKG from 'motionrig/package.json';
 import { ImageResponse } from 'next/og';
 
 export const alt = 'motionrig: Devs rig it. Designers play it. A yellow control ring on a 3D viewport floor.';
@@ -83,7 +84,7 @@ export default function Image() {
             color: '#9b9da6',
           }}
         >
-          v0.1 · npm soon
+          v{PKG.version} · on npm
         </div>
       </div>
 
