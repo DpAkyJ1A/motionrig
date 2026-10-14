@@ -1,6 +1,6 @@
 {
   "name": "motionrig",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Rig your site's motion, hand designers the controls. A tuning panel for animations on the live site: GSAP, CSS variables, WebGL — and a straight path from the designer's tweaks back to code.",
   "keywords": [
     "animation",
