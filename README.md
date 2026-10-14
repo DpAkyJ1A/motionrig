@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://motionrig.vercel.app"><img src="https://raw.githubusercontent.com/DpAkyJ1A/motionrig/main/.github/assets/demo.gif" alt="The motionrig panel on a live page: dragging a slider condenses the headline's type, a new tilt replays its entrance, Copy code copies the values" width="100%"></a>
+<a href="https://motionrig.vercel.app"><img src="https://raw.githubusercontent.com/DpAkyJ1A/motionrig/main/.github/assets/demo.gif" alt="The motionrig panel on a live page: one drag opens up the headline's type, a longer duration and two curve picks replay its entrance, Share link copies every tweak" width="100%"></a>
 
 # motionrig
 
