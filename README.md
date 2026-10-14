@@ -1,118 +1,144 @@
-# motionrig (monorepo)
+<div align="center">
 
-**Devs rig it. Designers play it.**
+<a href="https://motionrig.vercel.app"><img src="https://raw.githubusercontent.com/DpAkyJ1A/motionrig/main/.github/assets/demo.gif" alt="The motionrig panel on a live page: dragging a slider condenses the headline's type, a new tilt replays its entrance, Copy code copies the values" width="100%"></a>
 
-The published package is [`packages/motionrig`](./packages/motionrig/README.md)
-— read that for the pitch, quickstart and full API. This README is for
-working in the repo: layout, dev commands and how a release goes out.
+# motionrig
 
-## Layout
+**Devs rig it. Designers play it.**<br>
+A tuning panel for your site's animation constants.
 
-```
-motionrig/
-  packages/motionrig/     the npm package (the only thing that gets published)
-    src/
-      index.ts              public core API (browser + SSR safe)
-      core/                  registry, gate, storage, eases, infer, css, snippet, share, path, config
-      panel/                 the lazy web-component panel (dist/panel.js)
-      react/index.ts         `motionrig/react` — useRig, RigPanel
-      cli/                    `motionrig` bin — apply
-    README.md CHANGELOG.md LICENSE package.json tsdown.config.ts vitest.config.ts
-  apps/site/               landing page (Next.js, App Router) — uses motionrig as workspace:*
-  docs/spec.md             the implementation spec
-  .changeset/               pending changesets
-  .github/workflows/         ci.yml (test/build/lint/size on every push & PR)
-                              release.yml (changesets → Version PR → publish)
-```
+[![npm](https://img.shields.io/npm/v/motionrig?color=ffd400&labelColor=1f2226)](https://www.npmjs.com/package/motionrig) [![core size](https://img.shields.io/badge/core-~3%20kB%20gzip-ffd400?labelColor=1f2226)](https://motionrig.vercel.app/docs/troubleshooting#does-it-cost-my-visitors-anything) [![dependencies](https://img.shields.io/badge/dependencies-0-ffd400?labelColor=1f2226)](https://www.npmjs.com/package/motionrig?activeTab=dependencies) [![CI](https://github.com/DpAkyJ1A/motionrig/actions/workflows/ci.yml/badge.svg)](https://github.com/DpAkyJ1A/motionrig/actions/workflows/ci.yml) [![license](https://img.shields.io/npm/l/motionrig?color=ffd400&labelColor=1f2226)](https://github.com/DpAkyJ1A/motionrig/blob/main/LICENSE)
 
-## Dev commands
+[Docs](https://motionrig.vercel.app/docs) · [Examples](https://motionrig.vercel.app/examples) · [Live demo](https://motionrig.vercel.app)
 
-Run from the repo root (pnpm workspace):
+</div>
 
-```bash
-pnpm install
+Wrap your animation constants in `rig()`. Open the site with `?rig`, tune durations, eases and distances while the animation plays, then send the values back to code: as a snippet, a share link, or a patch applied by `npx motionrig apply`.
 
-pnpm build        # builds the motionrig package (packages/motionrig/dist)
-pnpm test         # motionrig's test suite (vitest)
-pnpm typecheck     # typecheck every package
-pnpm check          # the package's full gate: typecheck, test, build, publint+attw, size-limit
-pnpm site            # run the landing page dev server (apps/site, localhost:4321)
-pnpm site:build       # build motionrig, then build the landing page against it
+- **Free for visitors.** About 3 kB gzipped and no dependencies. The panel downloads only behind `?rig`.
+- **Any engine.** GSAP, Motion, CSS transitions, the Web Animations API, canvas: anything that reads a number.
+- **The code always wins.** A tweak is dropped once its default changes in code, so it never fights a deploy.
+
+## Install
+
+```sh
+npm install motionrig
 ```
 
-Or scope to the package directly:
+## Usage
 
-```bash
-cd packages/motionrig
-pnpm check     # typecheck && test && build && lint:pkg && size
+```ts
+import gsap from 'gsap';
+import { mountPanel, rig } from 'motionrig';
+
+// rig() returns the same object, so your code reads it as before.
+const HERO = rig('hero', { duration: 0.6, ease: 'power2.out', y: 24 }, {
+  applies: 'replay',
+  replay: playHero, // adds a ▶ Replay button to the panel
+});
+
+// Read the values when the animation plays, so a replay uses the tuned ones.
+function playHero() {
+  gsap.from('.hero', { y: HERO.y, duration: HERO.duration, ease: HERO.ease });
+}
+
+playHero();
+mountPanel(); // loads the panel only when the page is opened with ?rig
 ```
 
-`pnpm build` deletes and recreates `packages/motionrig/dist`. If something
-else in the workspace (the site's dev server, another agent) rebuilds at the
-same moment, a size/pack check can race a half-written `dist` — just re-run
-the command.
+Open your page with **`?rig`** and tune. Then press **Copy code** and paste, or press **Share link** and apply the link to your source:
 
-## Release flow
-
-Releases go through [Changesets](https://github.com/changesets/changesets):
-
-1. **Describe the change.** From the repo root:
-
-   ```bash
-   pnpm changeset
-   ```
-
-   Pick `motionrig`, a bump type (patch/minor/major), and write the
-   user-facing summary — this becomes the `CHANGELOG.md` entry. Commit the
-   generated `.changeset/*.md` file with the change.
-
-2. **Push to `main`.** `.github/workflows/release.yml` runs on every push to
-   `main`. With pending changesets, it opens (or updates) a **"Version
-   Packages" PR** that bumps `packages/motionrig/package.json` and rewrites
-   `CHANGELOG.md` from the accumulated changesets.
-
-3. **Merge that PR.** The same workflow then runs `pnpm release`
-   (`pnpm --filter motionrig check && changeset publish`) — the package's
-   full gate (typecheck, test, build, `publint --strict`, `attw`,
-   `size-limit`) has to pass before anything is published. Publishing uses
-   `NODE_AUTH_TOKEN`/`NPM_TOKEN` (an npm automation token with publish
-   rights, stored as the repo secret `NPM_TOKEN`) and npm provenance
-   (`id-token: write` permission + `NPM_CONFIG_PROVENANCE: true`), so the
-   published package carries a verifiable build attestation back to this
-   repo and workflow run.
-
-**Before the first real publish**, sanity-check what will actually ship:
-
-```bash
-cd packages/motionrig
-pnpm pack --dry-run   # or: npm pack --dry-run
+```sh
+npx motionrig apply "https://your-site.com/?rig=…"
 ```
 
-Expect only `dist/`, `README.md`, `LICENSE`, `CHANGELOG.md` and
-`package.json` in the listing — `"files": ["dist", "CHANGELOG.md"]` plus npm's own
-always-included set (`README*`, `LICENSE*`, `CHANGELOG*`, `package.json`)
-account for every entry; nothing from `src/`, tests, or repo tooling should
-appear.
+<details>
+<summary><b>React</b></summary>
 
-**The first publish skips the Version PR.** `changeset publish` publishes
-every package version that isn't on the registry yet. `package.json` already
-says `0.1.0` and nothing is published, so the first push to `main` with no
-pending changesets publishes `0.1.0` straight away. Have the gate green and
-the TODO below done before that push. (A pending changeset would make the
-workflow open a Version PR instead, but that PR bumps the version past
-`0.1.0`.)
+<br>
 
-### Pre-publish TODO
+Mount the panel once with `<RigPanel />`, and read values you render or animate in an effect through `useRig`:
 
-- **`repository.url` must match the repo.** `packages/motionrig/package.json`
-  points at `github.com/DpAkyJ1A/motionrig`. With `NPM_CONFIG_PROVENANCE: true`,
-  npm refuses a provenance publish unless `repository.url` matches the repo
-  the workflow runs in, so keep them in sync if the repo is renamed or moved.
-- `NPM_TOKEN` needs to actually exist as a secret on the GitHub repo once
-  one exists — `release.yml` references it but nothing has set it yet.
+```tsx
+import { RigPanel, useRig } from 'motionrig/react';
 
-## CI
+function Hero() {
+  const ref = useRef<HTMLHeadingElement>(null);
+  // A new snapshot on every edit: the effect re-runs with the tuned values.
+  const { duration, ease, y } = useRig(HERO);
 
-`.github/workflows/ci.yml` runs on every push to `main` and every PR:
-`pnpm check` (the package's full gate) and a production build of
-`apps/site` against it.
+  useEffect(() => {
+    const tween = gsap.from(ref.current, { y, duration, ease });
+    return () => void tween.revert();
+  }, [duration, ease, y]);
+
+  return <h1 ref={ref}>Ship it.</h1>;
+}
+
+createRoot(root).render(
+  <>
+    <App />
+    <RigPanel />
+  </>,
+);
+```
+
+</details>
+
+<details>
+<summary><b>Next.js (App Router)</b></summary>
+
+<br>
+
+Rig modules need no `'use client'`: on the server, `rig()` returns the object untouched. Read values in client components with `useRig`, as in React, and mount the panel from a small client component in the root layout:
+
+```tsx
+// components/PanelMount.tsx
+'use client';
+import { RigPanel } from 'motionrig/react';
+
+export function PanelMount() {
+  // Import every rig module, so every tab shows on every page.
+  return <RigPanel preload={() => import('@/motion/rigs')} />;
+}
+```
+
+```tsx
+// app/layout.tsx
+<body>
+  {children}
+  <PanelMount />
+</body>
+```
+
+</details>
+
+<details>
+<summary><b>Using GSAP? Register CustomEase</b></summary>
+
+<br>
+
+Custom curves from the panel's bezier editor are written as `'x1,y1,x2,y2'` strings, which GSAP reads only once `CustomEase` is registered:
+
+```ts
+import gsap from 'gsap';
+import { CustomEase } from 'gsap/CustomEase';
+
+gsap.registerPlugin(CustomEase);
+```
+
+</details>
+
+## Documentation
+
+Everything else is at **[motionrig.vercel.app/docs](https://motionrig.vercel.app/docs)**: [controls](https://motionrig.vercel.app/docs/controls), [eases](https://motionrig.vercel.app/docs/eases), [CSS variables](https://motionrig.vercel.app/docs/css-variables), [handoff and the CLI](https://motionrig.vercel.app/docs/handoff), and the [API reference](https://motionrig.vercel.app/docs/rig).
+
+Working with an AI assistant? Give it [llms-full.txt](https://motionrig.vercel.app/llms-full.txt), the whole documentation in one file, or use **Copy page** on any docs page.
+
+## Contributing
+
+Bug reports and ideas are welcome in [issues](https://github.com/DpAkyJ1A/motionrig/issues). To work on the code, see [CONTRIBUTING.md](https://github.com/DpAkyJ1A/motionrig/blob/main/CONTRIBUTING.md).
+
+## License
+
+[MIT](https://github.com/DpAkyJ1A/motionrig/blob/main/LICENSE)

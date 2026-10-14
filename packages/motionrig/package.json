@@ -60,6 +60,7 @@
     "size": "size-limit",
     "lint:pkg": "publint --strict && attw --pack . --profile esm-only",
     "check": "pnpm typecheck && pnpm test && pnpm build && pnpm lint:pkg && pnpm size",
+    "prepack": "node -e \"require('fs').copyFileSync('../../README.md','README.md')\"",
     "prepublishOnly": "pnpm check"
   },
   "peerDependencies": {
