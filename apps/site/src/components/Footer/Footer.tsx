@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ConsentButton } from '@/components/Analytics/Analytics';
 import { Ring } from '@/components/Ring/Ring';
 import { NEW_TAB, REPO } from '@/repo';
 import s from './Footer.module.css';
@@ -28,6 +29,7 @@ export function Footer() {
           <a href={`${REPO}/issues`} {...NEW_TAB}>
             Feedback &amp; issues
           </a>
+          <ConsentButton className={s.consent} />
           <span>MIT licensed</span>
           <span>Made by devazx</span>
           <span>v0.1, npm soon</span>

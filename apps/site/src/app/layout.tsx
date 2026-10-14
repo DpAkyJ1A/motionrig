@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Anybody, Martian_Mono, Schibsted_Grotesk } from 'next/font/google';
 import type { ReactNode } from 'react';
+import { Analytics } from '@/components/Analytics/Analytics';
 import { BackForward } from '@/components/BackForward/BackForward';
 import { PanelMount } from '@/components/PanelButton/PanelMount';
 import { pageMeta } from '@/meta';
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
         <PanelMount />
         <BackForward />
+        <Analytics />
       </body>
     </html>
   );

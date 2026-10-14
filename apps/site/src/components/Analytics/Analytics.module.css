@@ -1,0 +1,84 @@
+/* Bottom right: the panel's ring sits in the bottom left corner. */
+.banner {
+  position: fixed;
+  right: var(--gutter);
+  bottom: var(--gutter);
+  z-index: 50;
+  display: grid;
+  gap: 14px;
+  width: min(400px, calc(100vw - 2 * var(--gutter)));
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  /* Opaque: the display type behind it showed through even a few percent of transparency. */
+  background: rgb(26 28 31);
+  box-shadow: 0 24px 48px rgb(0 0 0 / 0.45);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.banner p {
+  margin: 0;
+}
+
+/* Full width on a phone, so it climbs over the ring (40px, 16px off the corner) instead. */
+@media (max-width: 520px) {
+  .banner {
+    bottom: calc(68px + env(safe-area-inset-bottom));
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .banner {
+    animation: rise 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.6s both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.allow,
+.deny {
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s, background-color 0.15s, border-color 0.15s;
+}
+
+.allow {
+  border: 0;
+  background: var(--rig);
+  color: var(--rig-ink);
+}
+
+.allow:hover {
+  background: #ffe04d;
+}
+
+.deny {
+  border: 1px solid rgb(255 255 255 / 0.2);
+  background: transparent;
+  color: var(--text);
+}
+
+.deny:hover {
+  border-color: rgb(255 255 255 / 0.45);
+}
+
+.allow:active,
+.deny:active {
+  transform: scale(0.97);
+}

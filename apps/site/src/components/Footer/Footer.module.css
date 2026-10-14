@@ -78,6 +78,24 @@
   text-decoration-color: var(--rig);
 }
 
+/* A button that reads as one of the links beside it. */
+.consent {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-size: inherit;
+  line-height: inherit;
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgb(255 255 255 / 0.25);
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.consent:hover {
+  text-decoration-color: var(--rig);
+}
+
 @media (max-width: 640px) {
   .big {
     opacity: 0.6;
