@@ -1,6 +1,6 @@
 ---
 title: Installation
-description: Install motionrig and set it up in Next.js, React or plain JavaScript.
+description: Install motionrig from npm and set it up in Next.js, React (Vite, React Router, Remix) or plain JavaScript.
 ---
 
 ```sh install

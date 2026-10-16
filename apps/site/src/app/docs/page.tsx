@@ -9,7 +9,7 @@ const intro = () => page('introduction')!;
 export function generateMetadata(): Metadata {
   const doc = intro();
   return {
-    ...pageMeta('/docs', 'Docs — motionrig', doc.description),
+    ...pageMeta('/docs', 'Docs — motionrig, a live tuning panel for web animations', doc.description),
     alternates: { canonical: '/docs', types: { 'text/markdown': doc.mdHref } },
   };
 }

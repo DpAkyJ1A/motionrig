@@ -18,12 +18,13 @@ import { Ring } from '@/components/Ring/Ring';
 import sec from '@/components/Section/Section.module.css';
 import { SideNav } from '@/components/SideNav/SideNav';
 import { EXAMPLES, type Example } from '@/examples/registry';
+import { breadcrumbs, JsonLd } from '@/jsonld';
 import { pageMeta } from '@/meta';
 
 export const metadata: Metadata = pageMeta(
   '/examples',
-  'Examples — motionrig',
-  'Rig the animation you already have: CSS transitions and keyframes, GSAP tweens, timelines and ScrollTrigger, Motion springs, WAAPI, canvas loops and React state. Live demos with the diff.',
+  'Examples: GSAP, CSS, Motion and canvas, rigged — motionrig',
+  'Rig the animation you already have: CSS, GSAP timelines and ScrollTrigger, Motion springs, WAAPI, canvas and React state. Live demos with the diff.',
 );
 
 // The page shows the very files its demos run: read at build time from src/examples.
@@ -77,6 +78,7 @@ function Pane({ lines, label, fresh }: { lines: (DiffLine & { html?: ReactNode }
 export default function ExamplesPage() {
   return (
     <>
+      <JsonLd nodes={[breadcrumbs(['motionrig', '/'], ['Examples', '/examples'])]} />
       <Nav page="examples" />
       <main id="main">
         <header className={p.intro}>

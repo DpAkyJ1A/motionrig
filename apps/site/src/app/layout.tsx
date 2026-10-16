@@ -17,9 +17,10 @@ const origin =
   process.env.SITE_URL ??
   (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : 'http://localhost:4321');
 
-const title = 'motionrig — Devs rig it. Designers play it.';
+// The category goes in the title: "motionrig" alone is also the name of an Unreal Engine tool.
+const title = 'motionrig — a live tuning panel for web animations';
 const description =
-  'Wrap your animation constants with rig() and designers tune them on the live site through a panel, then ship the values back to code: copy code, share a link, or npx motionrig apply.';
+  'Wrap animation constants in rig() and designers tune them on your live site (GSAP, CSS, Motion, WebGL), then ship the values back to code.';
 
 // The home page's tags; a page without its own (the 404, which Next marks noindex) inherits them.
 export const metadata: Metadata = { metadataBase: new URL(origin), ...pageMeta('/', title, description) };

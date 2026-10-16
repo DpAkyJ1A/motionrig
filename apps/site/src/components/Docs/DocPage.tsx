@@ -6,6 +6,7 @@ import { Ring } from '@/components/Ring/Ring';
 import sec from '@/components/Section/Section.module.css';
 import { type DocPage as Page, GROUPS, neighbours, pages, SITE } from '@/docs/content';
 import { pageMarkdown } from '@/docs/markdown';
+import { docNodes, JsonLd } from '@/jsonld';
 import { REPO, NEW_TAB } from '@/repo';
 import { CopyPage } from './CopyPage';
 import d from './Docs.module.css';
@@ -26,6 +27,7 @@ export function DocPage({ page }: { page: Page }) {
 
   return (
     <>
+      <JsonLd nodes={docNodes(page)} />
       <Nav page="docs" />
       <main id="main">
         <div className={`${p.layout} ${d.layout}`}>

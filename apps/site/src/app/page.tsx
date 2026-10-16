@@ -8,10 +8,12 @@ import { Hero } from '@/components/Hero/Hero';
 import { HowItWorks } from '@/components/HowItWorks/HowItWorks';
 import { Nav } from '@/components/Nav/Nav';
 import { Quickstart } from '@/components/Quickstart/Quickstart';
+import { JsonLd } from '@/jsonld';
 
 export default function Page() {
   return (
     <>
+      <JsonLd />
       <Nav page="home" />
       <main id="main">
         <Hero />
